@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debugging Exercise - Find the Bugs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #d32f2f;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .bug-section {
+            border: 2px solid #d32f2f;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            background: #fafafa;
+        }
+        
+        .bug-title {
+            color: #d32f2f;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .bug-number {
+            background: #d32f2f;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        
+        .keyword {
+            color: #569cd6;
+        }
+        
+        .string {
+            color: #ce9178;
+        }
+        
+        .function {
+            color: #dcdcaa;
+        }
+        
+        .hint {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            color: #1565c0;
+        }
+        
+        .hint::before {
+            content: "💡 Hint: ";
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .expected {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        
+        .expected::before {
+            content: "✓ Expected: ";
+            color: #2e7d32;
+            font-weight: bold;
+        }
+        
+        .instructions {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+            color: #e65100;
+        }
+        
+        .instructions h2 {
+            margin-bottom: 10px;
+            color: #ff9800;
+        }
+        
+        .instructions ul {
+            margin-left: 20px;
+        }
+        
+        .instructions li {
+            margin: 8px 0;
+        }
+        
+        .data-section {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+        
+        .data-section::before {
+            content: "📋 Given Data (Do NOT Change)";
+            display: block;
+            color: #4ec9b0;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .button {
+            background: #d32f2f;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 20px;
+            width: 100%;
+            transition: background 0.3s;
+        }
+        
+        .button:hover {
+            background: #b71c1c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐛 Debugging Exercise - Insurance Customer Analytics</h1>
+        <p class="subtitle">Find and fix the bugs in these JavaScript snippets</p>
+        
+        <div class="instructions">
+            <h2>📝 Instructions</h2>
+            <ul>
+                <li>Each snippet contains at least ONE bug</li>
+                <li><strong>Identify:</strong> What is wrong?</li>
+                <li><strong>Fix:</strong> Correct ONLY the bug (do not rewrite completely)</li>
+                <li><strong>Topics:</strong> let/const, arrow functions, template literals, map/filter/reduce, loops, immutability</li>
+            </ul>
+        </div>
+        
+        <div class="data-section">
+const customers = [
+    { id: 1, name: "Ravi", age: 32, policy: "Health", premium: 4800, active: true },
+    { id: 2, name: "Anita", age: 51, policy: "Life", premium: 12000, active: true },
+    { id: 3, name: "Kiran", age: 28, policy: "Vehicle", premium: 3500, active: false },
+    { id: 4, name: "Meena", age: 45, policy: "Health", premium: 6000, active: true },
+    { id: 5, name: "Suresh", age: 60, policy: "Life", premium: 18000, active: false }
+];
+        </div>
+        
+        <!-- BUG 1 -->
+        <div class="bug-section">
+            <div class="bug-title">
+                <div class="bug-number">1</div>
+                Loop Output Issue
+            </div>
+            <div class="expected">Ravi, Anita, Kiran, Meena, Suresh</div>
+            <div class="code-block">
+<span class="keyword">for</span> (<span class="keyword">let</span> i = 0; i <= customers.length; i++) {
+    console.log(customers[i].name);
+}
+            </div>
+            <div class="hint">Array index & loop condition</div>
+        </div>
+        
+        <!-- BUG 2 -->
+        <div class="bug-section">
+            <div class="bug-title">
+                <div class="bug-number">2</div>
+                filter() Not Working
+            </div>
+            <div class="expected">3 active customers (Ravi, Anita, Meena)</div>
+            <div class="code-block">
+<span class="keyword">const</span> activeCustomers = customers.<span class="function">filter</span>((c) => {
+    c.active === <span class="keyword">true</span>;
+});
+            </div>
+            <div class="hint">Return value in arrow function</div>
+        </div>
+        
+        <!-- BUG 3 -->
+        <div class="bug-section">
+            <div class="bug-title">
+                <div class="bug-number">3</div>
+                Premium Increase Logic Broken
+            </div>
+            <div class="expected">Increase premium by 10% for customers age >= 50</div>
+            <div class="code-block">
+<span class="keyword">const</span> updatedPremiums = customers.<span class="function">map</span>((c) => {
+    <span class="keyword">if</span> (c.age >= 50) {
+        c.premium = c.premium * 1.1;
+    }
+});
+            </div>
+            <div class="hint">map() return & immutability</div>
+        </div>
+        
+        <!-- BUG 4 -->
+        <div class="bug-section">
+            <div class="bug-title">
+                <div class="bug-number">4</div>
+                Wrong Total Premium Calculation
+            </div>
+            <div class="expected">Total premium of all customers (₹44,300)</div>
+            <div class="code-block">
+<span class="keyword">const</span> totalPremium = customers.<span class="function">reduce</span>((total, c) => {
+    total + c.premium;
+}, 0);
+            </div>
+            <div class="hint">reduce() must return the accumulator</div>
+        </div>
+        
+        <!-- BUG 5 -->
+        <div class="bug-section">
+            <div class="bug-title">
+                <div class="bug-number">5</div>
+                Template Literal Not Printing
+            </div>
+            <div class="expected">Customer Ravi has policy Health</div>
+            <div class="code-block">
+console.<span class="function">log</span>(<span class="string">"Customer " + {customers[0].name} + " has policy " + {customers[0].policy}</span>);
+            </div>
+            <div class="hint">Use backticks (`) not quotes (\") for template literals</div>
+        </div>
+        
+        <!-- BUG 6 -->
+        <div class="bug-section">
+            <div class="bug-title">
+                <div class="bug-number">6</div>
+                Policy Count Incorrect
+            </div>
+            <div class="expected">Count each policy type separately</div>
+            <div class="code-block">
+<span class="keyword">const</span> policyCount = customers.<span class="function">reduce</span>((count, c) => {
+    count.policy = (count.policy || 0) + 1;
+    <span class="keyword">return</span> count;
+}, {});
+            </div>
+            <div class="hint">Use dynamic object key: count[c.policy]</div>
+        </div>
+        
+        <!-- BUG 7 -->
+        <div class="bug-section">
+            <div class="bug-title">
+                <div class="bug-number">7</div>
+                Risk Level Always Undefined
+            </div>
+            <div class="expected">Low (age < 35), Medium (35-50), High (> 50)</div>
+            <div class="code-block">
+<span class="keyword">const</span> customersWithRisk = customers.<span class="function">map</span>((c) => {
+    <span class="keyword">let</span> riskLevel;
+    <span class="keyword">if</span> (c.age < 35) riskLevel = <span class="string">"Low"</span>;
+    <span class="keyword">if</span> (c.age <= 50) riskLevel = <span class="string">"Medium"</span>;
+    <span class="keyword">else</span> riskLevel = <span class="string">"High"</span>;
+    <span class="keyword">return</span> { ...c, riskLevel };
+});
+            </div>
+            <div class="hint">Fix condition chaining: use else if</div>
+        </div>
+        
+        <!-- BUG 8 -->
+        <div class="bug-section">
+            <div class="bug-title">
+                <div class="bug-number">8</div>
+                Active vs Inactive Count Wrong
+            </div>
+            <div class="expected">Active: 3, Inactive: 2</div>
+            <div class="code-block">
+<span class="keyword">let</span> active = 0, inactive = 0;
+
+<span class="keyword">for</span> (<span class="keyword">let</span> c <span class="keyword">in</span> customers) {
+    <span class="keyword">if</span> (c.active) active++;
+    <span class="keyword">else</span> inactive++;
+}
+            </div>
+            <div class="hint">Use for...of instead of for...in</div>
+        </div>
+        
+        <!-- BUG 9 -->
+        <div class="bug-section">
+            <div class="bug-title">
+                <div class="bug-number">9</div>
+                Arrow Function Syntax Error
+            </div>
+            <div class="expected">Get all Life Insurance customer names</div>
+            <div class="code-block">
+<span class="keyword">const</span> getLifeCustomers = () =>
+    customers.<span class="function">filter</span>((c) => c.policy === <span class="string">"Life"</span>).<span class="function">map</span>((c) =>
+    c.name);
+            </div>
+            <div class="hint">Arrow function must return the chained result</div>
+        </div>
+        
+        <!-- BUG 10 -->
+        <div class="bug-section">
+            <div class="bug-title">
+                <div class="bug-number">10</div>
+                Sorting Mutates Original Array
+            </div>
+            <div class="expected">Sort by premium WITHOUT changing original array</div>
+            <div class="code-block">
+<span class="keyword">const</span> sortedCustomers = customers.<span class="function">sort</span>((a, b) => b.premium - a.premium);
+            </div>
+            <div class="hint">Array mutation - use spread operator [...customers]</div>
+        </div>
+        
+        <button class="button" onclick="openDebuggingFile()">👉 Open Full Exercise</button>
+    </div>
+    
+    <script>
+        function openDebuggingFile() {
+            window.open('debugging_exercise.js', '_blank');
+            alert('Open the debugging_exercise.js file in your code editor to see all bugs with console logs!');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 1 - Insurance Enquiry & Feedback</title>
+    <link rel="stylesheet" href="assignment1.css">
+</head>
+<body>
+    <div class="form-container">
+        <h1>Insurance Enquiry & Feedback Form</h1>
+        <p class="description">Submit your policy-related queries and feedback</p>
+        
+        <form id="enquiryForm">
+            <div class="form-group">
+                <label for="fullName">Full Name *</label>
+                <input type="text" id="fullName" placeholder="Enter your full name">
+                <span class="error" id="nameError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" placeholder="Enter your email">
+                <span class="error" id="emailError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="mobile">Mobile Number *</label>
+                <input type="tel" id="mobile" placeholder="Enter 10-digit mobile number">
+                <span class="error" id="mobileError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="requestType">Request Type *</label>
+                <select id="requestType">
+                    <option value="">Select Request Type</option>
+                    <option value="Policy Enquiry">Policy Enquiry</option>
+                    <option value="Claim Related">Claim Related</option>
+                    <option value="Feedback">Feedback</option>
+                </select>
+                <span class="error" id="requestTypeError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="policyType">Policy Type *</label>
+                <select id="policyType">
+                    <option value="">Select Policy Type</option>
+                    <option value="Health Insurance">Health Insurance</option>
+                    <option value="Life Insurance">Life Insurance</option>
+                    <option value="Vehicle Insurance">Vehicle Insurance</option>
+                    <option value="Home Insurance">Home Insurance</option>
+                </select>
+                <span class="error" id="policyTypeError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message *</label>
+                <textarea id="message" placeholder="Enter your message (minimum 10 characters)" rows="5"></textarea>
+                <span class="error" id="messageError"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Experience Rating (1-5) *</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="rating" value="1"> 1 - Very Poor
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="rating" value="2"> 2 - Poor
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="rating" value="3"> 3 - Average
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="rating" value="4"> 4 - Good
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="rating" value="5"> 5 - Excellent
+                    </label>
+                </div>
+                <span class="error" id="ratingError"></span>
+            </div>
+
+            <div id="successMessage" class="success" style="display:none;">
+                Thank you! Your enquiry has been successfully submitted.
+            </div>
+
+            <button type="submit" class="btn">Submit</button>
+        </form>
+    </div>
+
+    <script src="assignment1.js"></script>
+</body>
+</html>
